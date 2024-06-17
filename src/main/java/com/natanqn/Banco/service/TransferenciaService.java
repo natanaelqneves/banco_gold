@@ -6,6 +6,8 @@ import com.natanqn.Banco.repository.TransferenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class TransferenciaService {
 
@@ -16,7 +18,7 @@ public class TransferenciaService {
     private TransferenciaRepository transferenciaRepository;
 
 
-    public void transferirValorPara(Long valor, Long contaDepositante, Long contaCreditada){
+    public void transferirValorPara(BigDecimal valor, Long contaDepositante, Long contaCreditada){
         Conta depositante = contaService.acharContaPorId(contaDepositante).get();
         Conta creditada = contaService.acharContaPorId(contaCreditada).get();;
         depositante.sacar(valor);

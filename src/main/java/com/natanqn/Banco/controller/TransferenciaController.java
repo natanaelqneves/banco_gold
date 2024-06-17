@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/transacao")
 public class TransferenciaController {
@@ -18,7 +20,7 @@ public class TransferenciaController {
 
     @Transactional
     @PostMapping
-    public void transferirDePara(Long valor, Long depositante, Long creditada ){
+    public void transferirDePara(BigDecimal valor, Long depositante, Long creditada ){
         System.out.println("TENTOU TRANSFERIR!");
         transferenciaService.transferirValorPara(valor, depositante, creditada);
     }

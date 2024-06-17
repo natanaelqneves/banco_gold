@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
@@ -39,13 +40,13 @@ public class ContaController {
 
     @Transactional
     @PostMapping(path = "/depositar")
-    public void depositar(Long valor, Long id){
+    public void depositar(BigDecimal valor, Long id){
         contaService.depositar(valor, id);
     }
 
     @Transactional
     @PostMapping(path = "/sacar")
-    public void sacar(Long valor, Long id){
+    public void sacar(BigDecimal valor, Long id){
         contaService.sacar(valor, id);
     }
 

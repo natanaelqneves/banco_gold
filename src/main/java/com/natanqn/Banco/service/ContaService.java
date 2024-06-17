@@ -8,6 +8,7 @@ import com.natanqn.Banco.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -38,12 +39,12 @@ public class ContaService {
         contaRepository.deleteById(id);
     }
 
-    public void depositar(Long valor, Long id){
+    public void depositar(BigDecimal valor, Long id){
         Optional<Conta> conta = acharContaPorId(id);
         conta.get().depositar(valor);
     }
 
-    public void sacar(Long valor, Long id){
+    public void sacar(BigDecimal valor, Long id){
         Optional<Conta> conta = acharContaPorId(id);
         conta.get().sacar(valor);
     }

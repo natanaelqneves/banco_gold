@@ -3,6 +3,7 @@ package com.natanqn.Banco.model.transferencia;
 import com.natanqn.Banco.model.conta.Conta;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public class Transferencia {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-        private Long valor;
+        private BigDecimal valor;
         @ManyToOne
         private Conta contaPagadora;
         @ManyToOne
@@ -23,7 +24,7 @@ public class Transferencia {
     public Transferencia() {
     }
 
-    public Transferencia(Long valor, Conta depositante, Conta creditada) {
+    public Transferencia(BigDecimal valor, Conta depositante, Conta creditada) {
         this.id = id;
         this.valor = valor;
         this.contaPagadora = depositante;
@@ -35,7 +36,7 @@ public class Transferencia {
         return id;
     }
 
-    public Long getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 

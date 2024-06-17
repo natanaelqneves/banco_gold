@@ -3,6 +3,8 @@ package com.natanqn.Banco.model.conta;
 import com.natanqn.Banco.model.cliente.Cliente;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "contas")
 public class Conta {
@@ -11,7 +13,7 @@ public class Conta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String agencia;
-        private Long saldo;
+        private BigDecimal saldo;
     @OneToOne
     private Cliente titular;
     private Boolean estaAtiva;
@@ -22,7 +24,7 @@ public class Conta {
     public Conta(Cliente cliente) {
         this.id = id;
         this.agencia = "001";
-        this.saldo = 0l;
+        this.saldo = BigDecimal.ZERO;
         this.titular = cliente;
         this.estaAtiva = Boolean.TRUE;
         System.out.println("conta criada!");
@@ -38,11 +40,11 @@ public class Conta {
 
 
 
-    public Long getSaldo() {
+    public BigDecimal getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(Long saldo) {
+    public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
     }
 
@@ -54,20 +56,23 @@ public class Conta {
         return estaAtiva;
     }
 
-    public void depositar(Long valor){
-        this.saldo = saldo + valor;
+    public void depositar(BigDecimal valor){
+        this.saldo = saldo.add(valor);
     }
 
-    public void sacar(Long valor){
+    public void sacar(BigDecimal valor){
         Boolean haSaldo = verificaSaldo(valor);
         if(haSaldo){
-            this.saldo = saldo - valor;
+            this.saldo = saldo.subtract(valor);
         }
         System.out.println(mensagem(haSaldo));;
     }
 
-    private boolean verificaSaldo(Long valor) {
-        return valor <= this.saldo;
+    private boolean verificaSaldo(BigDecimal valor) {
+        if(this.saldo.compareTo(valor) <= 0){
+            return true;
+        }
+        return false;
     }
 
     private String mensagem(Boolean estaAtiva) {

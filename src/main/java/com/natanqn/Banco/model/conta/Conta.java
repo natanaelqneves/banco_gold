@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+import static java.lang.Boolean.*;
+
 @Entity
 @Table(name = "contas")
 public class Conta {
@@ -26,7 +28,7 @@ public class Conta {
         this.agencia = "001";
         this.saldo = BigDecimal.ZERO;
         this.titular = cliente;
-        this.estaAtiva = Boolean.TRUE;
+        this.estaAtiva = TRUE;
         System.out.println("conta criada!");
     }
 
@@ -56,6 +58,7 @@ public class Conta {
         return estaAtiva;
     }
 
+
     public void depositar(BigDecimal valor){
         this.saldo = saldo.add(valor);
     }
@@ -65,11 +68,11 @@ public class Conta {
         if(haSaldo){
             this.saldo = saldo.subtract(valor);
         }
-        System.out.println(mensagem(haSaldo));;
+        System.out.println(mensagem(haSaldo));
     }
 
-    private boolean verificaSaldo(BigDecimal valor) {
-        if(this.saldo.compareTo(valor) <= 0){
+    public boolean verificaSaldo(BigDecimal valor) {
+        if(this.saldo.compareTo(valor) >= 0){
             return true;
         }
         return false;

@@ -20,6 +20,7 @@ public class Transferencia {
         @ManyToOne
         private Conta contaDestino;
         private LocalDateTime horaDaTransferencia;
+        private Boolean confirmada;
 
     public Transferencia() {
     }
@@ -30,6 +31,7 @@ public class Transferencia {
         this.contaPagadora = depositante;
         this.contaDestino = creditada;
         this.horaDaTransferencia = LocalDateTime.now();
+        this.confirmada = this.contaPagadora.verificaSaldo(valor);
     }
 
     public Long getId() {
@@ -50,5 +52,9 @@ public class Transferencia {
 
     public Conta getContaPagadora() {
         return contaPagadora;
+    }
+
+    public Boolean getConfirmada() {
+        return confirmada;
     }
 }

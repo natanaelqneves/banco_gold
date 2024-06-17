@@ -21,9 +21,11 @@ public class TransferenciaService {
     public void transferirValorPara(BigDecimal valor, Long contaDepositante, Long contaCreditada){
         Conta depositante = contaService.acharContaPorId(contaDepositante).get();
         Conta creditada = contaService.acharContaPorId(contaCreditada).get();;
-        depositante.sacar(valor);
-        creditada.depositar(valor);
-            transferenciaRepository.save(new Transferencia(valor, depositante, creditada));
+        if(depositante.verificaSaldo(valor)){
+            depositante.sacar(valor);
+            creditada.depositar(valor);
+        }
+        transferenciaRepository.save(new Transferencia(valor, depositante, creditada));
         }
 
     public Iterable<Transferencia> acharTodasAsTransferencias() {
